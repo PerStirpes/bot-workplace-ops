@@ -17,6 +17,7 @@ const app: App = new App({
 });
 
 /*
+
 ########################### MESSAGES ########################### 
 
 */
@@ -92,6 +93,7 @@ app.action("button_click", ({ action, ack, body, say }) => {
 });
 
 /*
+
 ########################### COMMANDS ########################### 
 
 */
@@ -99,11 +101,13 @@ app.action("button_click", ({ action, ack, body, say }) => {
 app.command("/echo", async ({ command, ack, say }) => {
   // Acknowledge command request
   ack();
-  say(`You said "${command.text}"`);
+  say({ text: `You said "${command.text}"` });
 });
 
 /*
+
 ########################### EVENTS ########################### 
+
 */
 
 app.event("app_mention", async ({ event, say, context }) => {
@@ -127,7 +131,9 @@ app.event("app_mention", async ({ event, say, context }) => {
 });
 
 /*
+
 ########################### Start App ########################### 
+
 */
 if (process.env.NODE_ENV !== "production") {
   (async (PORT = 3000) => {
