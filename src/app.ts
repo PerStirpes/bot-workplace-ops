@@ -1,7 +1,7 @@
 import { App, LogLevel } from "@slack/bolt";
 import { asCodedError } from "@slack/bolt/dist/errors";
 import { buttonBlockModal, happyMessage, fortyTwo, hello } from "./messages";
-import { echoWithError } from "./commands";
+import { echoWithError, serviceDeskOptions } from "./commands";
 import { basicButtonClick } from "./actions";
 import { appMentionAction } from "./events";
 export const app: App = new App({
@@ -32,6 +32,8 @@ app.action("button_click", basicButtonClick);
 */
 
 app.command("/echo", echoWithError);
+
+app.command("/servicedesk", serviceDeskOptions);
 
 /*
 #################################################################
