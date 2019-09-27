@@ -1,6 +1,6 @@
 import { app } from "./app";
 import { errorDescription } from "./utils";
-import { SlackEventMiddlewareArgs, SayFn } from "@slack/bolt";
+import { SayFn } from "@slack/bolt";
 
 /*
 
