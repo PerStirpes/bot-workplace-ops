@@ -9,6 +9,7 @@ interface ButtonClick {
   body: any;
   say: any;
   context: any;
+  respond: any;
 }
 
 export const basicButtonClick = ({
@@ -16,11 +17,13 @@ export const basicButtonClick = ({
   context,
   ack,
   body,
+  respond,
   say
 }: ButtonClick) => {
   ack();
   console.log("context.conversation", context);
   const doggy = context.conversation;
+  // respond(`You selected <@${action}>`);
 
   say(
     `<@${body.user.id}> clicked the button  ${action.type} \n ${JSON.stringify(
@@ -46,7 +49,7 @@ export const openServiceDeskDialog = async ({
   body,
   say
 }: ThumbsUp) => {
-  ack();
+  // ack();
   try {
     const result = await app.client.views.open({
       token: context.botToken,
@@ -55,58 +58,191 @@ export const openServiceDeskDialog = async ({
 
       view: {
         type: "modal",
-        callback_id: "view_identifier_12",
+        callback_id: "thumbs_up_modal_view",
+        private_metadata: "Shhhhhhhh",
         title: {
           type: "plain_text",
-          text: "Modal title"
+          text: "Give a Thumbs Up 👍"
         },
-        blocks: [
-          {
-            type: "section",
-            text: {
-              type: "mrkdwn",
-              text: "It's Block Kit...but _in a modal_"
-            },
-            block_id: "section1",
-            accessory: {
-              type: "button",
-              text: {
-                type: "plain_text",
-                text: "Click me"
-              },
-              action_id: "button_abc",
-              value: "Button value",
-              style: "danger"
-            }
-          },
-          {
-            type: "input",
-            label: {
-              type: "plain_text",
-              text: "Input label"
-            },
-            element: {
-              type: "plain_text_input",
-              action_id: "input1",
-              placeholder: {
-                type: "plain_text",
-                text: "Type in here"
-              },
-              multiline: false
-            },
-            optional: false
-          }
-        ],
+
         submit: {
           type: "plain_text",
-          text: "Save"
+          text: "Send"
         },
         close: {
           type: "plain_text",
           text: "Cancel"
         },
-        private_metadata: "Shhhhhhhh"
+
+        blocks: [
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: "*Who are you Nominating?*"
+            },
+            block_id: "section1",
+            accessory: {
+              type: "users_select",
+              placeholder: {
+                type: "plain_text",
+                text: "Choose a Co-worker",
+                emoji: true
+              }
+            }
+          },
+          {
+            type: "actions",
+            elements: [
+              {
+                type: "users_select",
+                placeholder: {
+                  type: "plain_text",
+                  text: "Select a Coworker",
+                  emoji: true
+                }
+              }
+            ]
+          },
+          {
+            type: "divider"
+          },
+          {
+            type: "input",
+            element: {
+              type: "plain_text_input",
+              multiline: true,
+              placeholder: {
+                type: "plain_text",
+                text:
+                  "This message will be used at Allhands to honor the person you are nominating."
+              }
+            },
+            label: {
+              type: "plain_text",
+              text: "What Awesome Thing Did the Person Do?",
+              emoji: true
+            },
+            hint: {
+              type: "plain_text",
+              text:
+                "This message will be used at Allhands to honor the person you are nominating."
+            }
+          },
+          {
+            type: "actions",
+            elements: [
+              {
+                type: "users_select",
+                placeholder: {
+                  type: "plain_text",
+                  text: "Select a user",
+                  emoji: true
+                }
+              },
+              {
+                type: "static_select",
+                placeholder: {
+                  type: "plain_text",
+                  text: "Select a Gift",
+                  emoji: true
+                },
+                option_groups: [
+                  {
+                    label: {
+                      type: "plain_text",
+                      text: "Charitable Contributions"
+                    },
+                    options: [
+                      {
+                        text: {
+                          type: "plain_text",
+                          text: "Gift to Level the Playing field"
+                        },
+                        value: "gift_charity"
+                      },
+                      {
+                        text: {
+                          type: "plain_text",
+                          text: "Other"
+                        },
+                        value: "gift_coffee_card"
+                      }
+                    ]
+                  },
+                  {
+                    label: {
+                      type: "plain_text",
+                      text: "Dates"
+                    },
+                    options: [
+                      {
+                        text: {
+                          type: "plain_text",
+                          text: "Pair Movie tickets 🍿"
+                        },
+                        value: "gift_movie_tickets"
+                      },
+                      {
+                        text: {
+                          type: "plain_text",
+                          text: "Coffee Card ☕️"
+                        },
+                        value: "gift_coffee_card"
+                      }
+                    ]
+                  },
+                  {
+                    label: {
+                      type: "plain_text",
+                      text: "Wine, Beer, or Spirits"
+                    },
+                    options: [
+                      {
+                        text: {
+                          type: "plain_text",
+                          text: "Red Wine🍷"
+                        },
+                        value: "red_wine"
+                      },
+                      {
+                        text: {
+                          type: "plain_text",
+                          text: "White Wine 🍾"
+                        },
+                        value: "white_wine"
+                      },
+
+                      {
+                        text: {
+                          type: "plain_text",
+                          text: "Rose Wine🍷"
+                        },
+                        value: "rose_wine"
+                      },
+                      {
+                        text: {
+                          type: "plain_text",
+                          text: "Beer 🍺"
+                        },
+                        value: "beer"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       }
+    });
+    ack({
+      text: `\n The RESULT FROM openServiceDeskDialog: ${JSON.stringify(
+        result,
+        null,
+        4
+      )}  `,
+      response_type: "ephemeral"
     });
   } catch (error) {
     errorDescription(error);
