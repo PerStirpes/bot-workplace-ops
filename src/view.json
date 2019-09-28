@@ -1,0 +1,117 @@
+{
+  "id": "VNHD7213M",
+  "team_id": "TMQ0YBZHC",
+  "type": "modal",
+  "title": { "type": "plain_text", "text": "Modal title", "emoji": true },
+  "close": { "type": "plain_text", "text": "Cancel", "emoji": true },
+  "submit": { "type": "plain_text", "text": "Submit", "emoji": true },
+  "blocks": [
+    {
+      "type": "section",
+      "block_id": "ticket-desc",
+      "text": {
+        "type": "mrkdwn",
+        "text": "It's Block Kit...but in a modal",
+        "verbatim": false
+      },
+      "accessory": {
+        "type": "button",
+        "action_id": "button_abc",
+        "style": "danger",
+        "text": { "type": "plain_text", "text": "Click me", "emoji": true },
+        "value": "Button value"
+      }
+    },
+    {
+      "type": "input",
+      "block_id": "ticket-title",
+      "label": { "type": "plain_text", "text": "Input label", "emoji": true },
+      "optional": false,
+      "element": {
+        "type": "plain_text_input",
+        "action_id": "ticket-title-value",
+        "placeholder": {
+          "type": "plain_text",
+          "text": "Type in here",
+          "emoji": true
+        },
+        "multiline": false
+      }
+    }
+  ],
+  "private_metadata": "Shhhhhhhh",
+  "callback_id": "view_identifier_12",
+  "state": {
+    "values": {
+      "ticket-title": {
+        "ticket-title-value": { "type": "plain_text_input", "value": "joker" }
+      }
+    }
+  },
+  "hash": "1569701787.28682f98",
+  "clear_on_close": false,
+  "notify_on_close": false,
+  "root_view_id": "VNHD7213M",
+  "previous_view_id": null,
+  "app_id": "ANPG45QKY",
+  "external_id": "",
+  "bot_id": "BNP5WM5LP"
+}
+
+{
+    "id": "VNG4939BL",
+    "team_id": "TMQ0YBZHC",
+    "type": "modal",
+    "title": { "type": "plain_text", "text": "Modal title", "emoji": true },
+    "close": { "type": "plain_text", "text": "Cancel", "emoji": true },
+    "submit": { "type": "plain_text", "text": "Submit", "emoji": true },
+    "blocks": [
+      {
+        "type": "section",
+        "block_id": "ticket-desc",
+        "text": {
+          "type": "mrkdwn",
+          "text": "It's Block Kit...but in a modal",
+          "verbatim": false
+        },
+        "accessory": {
+          "type": "button",
+          "action_id": "button_abc",
+          "style": "danger",
+          "text": { "type": "plain_text", "text": "Click me", "emoji": true },
+          "value": "Button value"
+        }
+      },
+      {
+        "type": "input",
+        "block_id": "J3zEA",
+        "label": { "type": "plain_text", "text": "Input label", "emoji": true },
+        "optional": false,
+        "element": {
+          "type": "plain_text_input",
+          "action_id": "input1",
+          "placeholder": {
+            "type": "plain_text",
+            "text": "Type in here",
+            "emoji": true
+          },
+          "multiline": false
+        }
+      }
+    ],
+    "private_metadata": "Shhhhhhhh",
+    "callback_id": "view_identifier_12",
+    "state": {
+      "values": {
+        "J3zEA": { "input1": { "type": "plain_text_input", "value": "hi there" } }
+      }
+    },
+    "hash": "1569701296.730f42f3",
+    "clear_on_close": false,
+    "notify_on_close": false,
+    "root_view_id": "VNG4939BL",
+    "previous_view_id": null,
+    "app_id": "ANPG45QKY",
+    "external_id": "",
+    "bot_id": "BNP5WM5LP"
+  }
