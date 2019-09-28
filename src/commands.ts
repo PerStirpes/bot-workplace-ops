@@ -30,6 +30,7 @@ export const echoWithError = async ({ command, ack, say }: EchoError) => {
       }
     ]
   });
+
   say({ text: `You said "${command.text}"` });
 };
 
@@ -41,11 +42,11 @@ export const serviceDeskOptions = ({
   say
 }: ServiceDesk) => {
   ack({
-    text: `${JSON.stringify(context, null, 4)} \n ${JSON.stringify(
-      payload,
+    text: `*CONTEXT* ${JSON.stringify(
+      context,
       null,
       4
-    )}`,
+    )} \n *PAYLOAD* ${JSON.stringify(payload, null, 4)}`,
     response_type: "ephemeral"
   });
   say({
@@ -62,25 +63,35 @@ interface TicketInput {
   command: any;
   context: any;
 }
-
-export const ticketCommand = async ({
-  ack,
-  payload,
-  command,
-  context
-}: TicketInput) => {
-  // ack({
-  //   text: `${JSON.stringify(command, null, 4)} \n ${JSON.stringify(
-  //     payload,
-  //     null,
-  //     4
-  //   )}`,
-  //   response_type: "ephemeral"
-  // });
+// {
+//   ack,
+//   payload,
+//   command,
+//   context
+// }: TicketInput
+export const ticketCommand = async (yep: any) => {
+  yep.ack({
+    text: `${JSON.stringify(yep, null, 4)} `,
+    response_type: "ephemeral"
+  });
+  console.log("-----------------------------------------------");
+  console.log(
+    "PAYLOAD ack ack",
+    yep,
+    "\nPAYLOAD payload payload ",
+    yep.payload,
+    "\n-----------------------------------------------",
+    "\nPAYLOAD view view",
+    yep.command,
+    "\n-----------------------------------------------",
+    "\nPAYLOAD context context",
+    yep.context
+  );
+  // ack();
   try {
     const result = await app.client.views.open({
-      token: context.botToken,
-      trigger_id: payload.trigger_id,
+      token: yep.context.botToken,
+      trigger_id: yep.payload.trigger_id,
       type: "modal",
 
       view: {
@@ -88,8 +99,9 @@ export const ticketCommand = async ({
         callback_id: "view_identifier_12",
         title: {
           type: "plain_text",
-          text: "Modal title"
+          text: "Example Modal Title Text"
         },
+
         blocks: [
           {
             type: "section",
@@ -97,7 +109,7 @@ export const ticketCommand = async ({
               type: "mrkdwn",
               text: "It's Block Kit...but _in a modal_"
             },
-            block_id: "section1",
+            block_id: "ticket-desc",
             accessory: {
               type: "button",
               text: {
@@ -111,13 +123,14 @@ export const ticketCommand = async ({
           },
           {
             type: "input",
+            block_id: "ticket-title",
             label: {
               type: "plain_text",
               text: "Input label"
             },
             element: {
               type: "plain_text_input",
-              action_id: "input1",
+              action_id: "ticket-title-value",
               placeholder: {
                 type: "plain_text",
                 text: "Type in here"
@@ -129,20 +142,20 @@ export const ticketCommand = async ({
         ],
         submit: {
           type: "plain_text",
-          text: "Save"
+          text: "Submit"
         },
         close: {
           type: "plain_text",
           text: "Cancel"
         },
-        private_metadata: "Shhhhhhhh"
+        private_metadata: yep.payload.channel_id
       }
     });
 
-    ack({
-      text: `\n The result: ${JSON.stringify(result, null, 4)}  `,
-      response_type: "ephemeral"
-    });
+    // ack({
+    //   text: `\n The result: ${JSON.stringify(result, null, 4)}  `,
+    //   response_type: "ephemeral"
+    // });
   } catch (error) {
     console.log(error);
   }

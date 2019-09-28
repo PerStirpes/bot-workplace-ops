@@ -4,6 +4,8 @@ import { buttonBlockModal, happyMessage, fortyTwo, hello } from "./messages";
 import { echoWithError, serviceDeskOptions, ticketCommand } from "./commands";
 import { basicButtonClick, openServiceDeskDialog } from "./actions";
 import { appMentionAction } from "./events";
+import { inspect } from "util";
+import { viewPayloadServiceDesk } from "./blocks";
 export const app: App = new App({
   authorize: () => {
     return Promise.resolve({
@@ -55,6 +57,82 @@ app.message("happy", happyMessage);
 app.message("42", fortyTwo);
 app.message("hello", hello);
 app.message("servicedesk", buttonBlockModal);
+
+/*
+################################################################ 
+########################### Views ############################## 
+################################################################ 
+*/
+interface Bomb {
+  ack: any;
+  body: any;
+  view: any;
+  context: any;
+}
+// { ack, body, view, context }
+const valBomb = async (y: Bomb) => {
+  // Acknowledge the view_submission event
+
+  y.ack();
+  console.log("-----------------------------------------------");
+  console.log(
+    "PAYLOAD ack ack",
+    y
+    // "PAYLOAD body body ",
+    // y.body,
+    // "\n-----------------------------------------------",
+    // "\nPAYLOAD view view",
+    // view,
+    // "\n-----------------------------------------------",
+    // "\nPAYLOAD context context",
+    // context
+  );
+  // Do whatever you want with the input data - here we're saving it to a DB then sending the user a verifcation of their submission
+
+  // Assume there's an input block with `block_1` as the block_id and `input_a` ["input_a"];
+  // const val = view["state"]["values"];
+  const val =
+    y.view["state"]["values"]["ticket-title"]["ticket-title-value"]["value"];
+  // ["ticket-desc"];block_id
+  const user = y.body["user"]["id"];
+  const value1 = y.view.state.values;
+  console.log("-----------------------------------------------");
+  console.log(inspect(value1));
+  console.log("-----------------------------------------------");
+  // // Message to send user
+  // let msg = "";
+  // // Save to DB
+  // const results = await db.set(user.input, val);
+
+  // if (results) {
+  //   // DB save was successful
+  //   msg = "Your submission was successful";
+  // } else {
+  //   msg = "There was an error with your submission";
+  // }
+
+  // Message the user
+  // postEphemeral;
+  try {
+    app.client.chat.postMessage({
+      token: y.context.botToken,
+      channel: y.body.user.id,
+      text: val
+    });
+    app.client.chat.postEphemeral({
+      user: y.body.user.id,
+      token: y.context.botToken,
+      channel: y.view.private_metadata,
+      text: val
+    });
+  } catch (error) {
+    console.error(error);
+    console.log("-----------------------------------------------");
+  }
+};
+// Handle a view_submission event
+app.view("view_identifier_12", valBomb);
+app.view("thumbs_up_modal_view", valBomb);
 
 /*
 #################################################################
