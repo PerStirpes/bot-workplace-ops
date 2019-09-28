@@ -51,12 +51,16 @@ export const fortyTwo = ({ message, context }: happiness): void => {
 type Hello = {
   message: any;
   say: any;
+  context: any;
 };
 
 // sends a button
-export const hello = ({ message, say }: Hello) => {
+export const hello = async ({ message, context, say }: Hello) => {
+  await context.updateConversation({ value: "hello" });
+
   say({
     text: `Ewok is a dog!`,
+    icon_emoji: "dog",
     blocks: [
       {
         type: "section",
@@ -81,6 +85,7 @@ interface ButtonBlock {
   context: any;
   say: SayFn;
 }
+
 export const buttonBlockModal = ({ say }: ButtonBlock) => {
   say({
     text: "Just some text",
@@ -91,7 +96,7 @@ export const buttonBlockModal = ({ say }: ButtonBlock) => {
         text: {
           type: "mrkdwn",
           text:
-            "*LaunchDarkly ServiceDesk*\nYour approval is requested to make an offer to <http://example.com|Florence Tran>."
+            "*LaunchDarkly ServiceDesk*\nWelcome! You can raise a Workplace Operations request from the options provided"
         }
       },
       {
