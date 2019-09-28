@@ -1,3 +1,147 @@
+## SERVICE DESK TEXT
+
+```js
+const dialog = {
+  callback_id: "servicedesk",
+  title: "Workplace Operations",
+  submit_label: "Submit",
+  trigger_id: trigger_id,
+  elements: [
+    {
+      label: "What can we help you with?",
+      type: "text",
+      name: "task"
+    },
+
+    {
+      label: "What do need?",
+      type: "textarea",
+      name: "ld-what",
+      hint: `Tell us what you're looking for. For example, 'put me on the mailing list'`,
+      placeholder: `Tell us what you're looking for. For example, 'put me on the mailing list'.`
+    },
+    {
+      label: "Why do you need this?",
+      type: "textarea",
+      name: "ld-why"
+    }
+  ]
+};
+
+const dialogTH = {
+  callback_id: "th_up",
+  title: "Give a Thumbs Up! 👍",
+  submit_label: "Give",
+  trigger_id: trigger_id,
+  elements: [
+    {
+      label: "Who are you nominating?",
+      type: "select",
+      name: "nominee",
+      hint: "Monica will hand you the selected gift and a Thumbs up card. ",
+      data_source: "users"
+    },
+    {
+      label: "Gift Options",
+      type: "select",
+      name: "gift_options",
+      option_groups: giftOptions,
+      options: [{ label: "Bottle of Wine 🍷", value: "Low" }]
+    },
+
+    {
+      label: "What are you proposing they receive?",
+      type: "text",
+      name: "other",
+      optional: true,
+      subtype: "url",
+      placeholder: `Only required for Other Option`
+    },
+    {
+      label: "What awesome thing did the person do?",
+      type: "textarea",
+      name: "description",
+      placeholder: `This the message that will be used at Allhands to honor the person you are nominating.`
+    },
+    {
+      label: "Who is their Manager?",
+      type: "select",
+      name: "manager",
+      optional: true,
+      hint: "If you want their manager to know",
+      data_source: "users"
+    }
+  ]
+};
+```
+
+## Gift Options
+
+```js
+const giftOptions = [
+  {
+    label: "Charitable Contributions",
+    options: [
+      {
+        label: "Gift to Level the Playing field",
+        value: "charity"
+      }
+    ]
+  },
+  {
+    label: "Wine, Beer, or Spirits",
+    options: [
+      {
+        label: "Red Wine",
+        value: "red_wine"
+      },
+      {
+        label: "White Wine ",
+        value: "white_wine"
+      },
+      {
+        label: "Rose Wine",
+        value: "rose"
+      },
+      {
+        label: "Beer",
+        value: "beer"
+      }
+    ]
+  },
+  {
+    label: "Pair Movie tickets 🍿",
+    options: [
+      {
+        label: "Fandango gift card",
+        value: "movie_tickets"
+      }
+    ]
+  },
+  {
+    label: "Coffe Card ☕️",
+    options: [
+      {
+        label: "Pete's gift card",
+        value: "coffe_card"
+      }
+    ]
+  },
+  {
+    label: "Other",
+    options: [
+      {
+        label:
+          "Please specify what you would like them to get, and where to get it ",
+        value: "other"
+      }
+    ]
+  }
+];
+```
+
+### actions
+
 #### 4 buttons in a row
 
 ```
@@ -74,7 +218,7 @@
 
 ```
 
-````
+```
 [
       {
         type: "section",
@@ -172,4 +316,4 @@
         ]
       }
     ]
-````
+```
