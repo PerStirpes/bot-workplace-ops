@@ -1,0 +1,164 @@
+[
+  {
+    "type": "section",
+    "block_id": "section1",
+    "text": {
+      "type": "mrkdwn",
+      "text": "*Who are you Nominating?*"
+    },
+
+    "accessory": {
+      "type": "users_select",
+      "placeholder": {
+        "type": "plain_text",
+        "text": "Choose a Co-worker",
+        "emoji": true
+      }
+    }
+  },
+  {
+    "type": "actions",
+    "elements": [
+      {
+        "type": "users_select",
+        "placeholder": {
+          "type": "plain_text",
+          "text": "Select a Coworker",
+          "emoji": true
+        }
+      }
+    ]
+  },
+
+  {
+    "type": "input",
+    "block_id": "allhands_textarea_blockid",
+    "element": {
+      "type": "plain_text_input",
+      "action_id": "allhands_textarea_action_id",
+      "multiline": true,
+      "placeholder": {
+        "type": "plain_text",
+        "text": "This message will be used at Allhands to honor the person you are nominating."
+      }
+    },
+    "label": {
+      "type": "plain_text",
+      "text": "What Awesome Thing Did the Person Do?",
+      "emoji": true
+    },
+    "hint": {
+      "type": "plain_text",
+      "text": "This message will be used at Allhands to honor the person you are nominating."
+    }
+  },
+  {
+    "type": "actions",
+    "block_id": "block_id_4_users_select_static_select_action_id",
+    "elements": [
+      {
+        "type": "users_select",
+        "action_id": "users_select_action_id",
+        "placeholder": {
+          "type": "plain_text",
+          "text": "Select a user",
+          "emoji": true
+        }
+      },
+      {
+        "type": "static_select",
+        "action_id": "GIFTS_ACTION",
+        // action_id: "static_select_action_id",
+        "placeholder": {
+          "type": "plain_text",
+          "text": "Select a Gift",
+          "emoji": true
+        },
+        "option_groups": [
+          {
+            "label": {
+              "type": "plain_text",
+              "text": "Charitable Contributions"
+            },
+            "options": [
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": "Gift to Level the Playing field"
+                },
+
+                "value": "gift_charity"
+              },
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": "Other"
+                },
+                "value": "gift_coffee_card"
+              }
+            ]
+          },
+          {
+            "label": {
+              "type": "plain_text",
+              "text": "Dates"
+            },
+            "options": [
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": "Pair Movie tickets 🍿"
+                },
+                "value": "gift_movie_tickets"
+              },
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": "Coffee Card ☕️"
+                },
+                "value": "gift_coffee_card"
+              }
+            ]
+          },
+          {
+            "label": {
+              "type": "plain_text",
+              "text": "Wine, Beer, or Spirits"
+            },
+            "options": [
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": "Red Wine🍷"
+                },
+                "value": "red_wine"
+              },
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": "White Wine 🍾"
+                },
+                "value": "white_wine"
+              },
+
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": "Rose Wine🍷"
+                },
+                "value": "rose_wine"
+              },
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": "Beer 🍺"
+                },
+                "value": "beer"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
