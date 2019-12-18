@@ -26,25 +26,7 @@ app.use((args) => {
   args.next();
 });
 
-const restaurants = [
-  {
-    name: '割烹よし田',
-    url: 'https://tabelog.com/fukuoka/A4001/A400103/40000692/',
-  },
-  { name: '真', url: 'https://tabelog.com/fukuoka/A4001/A400103/40003911/' },
-  {
-    name: '新三浦 天神店',
-    url: 'https://tabelog.com/fukuoka/A4001/A400103/40000066/',
-  },
-  {
-    name: '利花苑 大名本店',
-    url: 'https://tabelog.com/fukuoka/A4001/A400104/40000443/',
-  },
-  {
-    name: '106 サウスインディアン 福岡天神店',
-    url: 'https://tabelog.com/fukuoka/A4001/A400103/40041110/',
-  },
-];
+
 
 // //
 // // app.options("_static_select_action_id_", async yep => {
@@ -128,7 +110,7 @@ const valBomb = async (y: Bomb) => {
   });
   // Do whatever you want with the input data - here we're saving it to a DB then sending the user a verifcation of their submission
 
-  //   // Assume there's an input block with `block_1` as the block_id and `input_a` ["input_a"];
+     // Assume there's an input block with `block_1` as the block_id and `input_a` ["input_a"];
   //   const val = y.view["state"]["values"];
   const val = y.view['state']['values']['ticket-title']['ticket-title-value']['value'];
   //   // ["ticket-desc"];block_id
@@ -186,18 +168,18 @@ const optionpicker = async (options: any) => {
   // const results = await db.get(options.team.id);
   console.log('OPTIONS PICKER ack ack', options, '-----------------------------------------------');
   options.ack();
-  // if (results) {
-  //   let options = [];
-  //   // Collect information in options array to send in Slack ack response
-  //   for (const result in results) {
-  //     options.push({
-  //       "text": {
-  //         "type": "plain_text",
-  //         "text": result.label
-  //       },
-  //       "value": result.value
-  //     });
-  //   }
+  if (results) {
+    let options = [];
+    // Collect information in options array to send in Slack ack response
+    for (const result in results) {
+      options.push({
+        "text": {
+          "type": "plain_text",
+          "text": result.label
+        },
+        "value": result.value
+      });
+    }
   if (options) {
     options.ack({
       options: options,
@@ -243,7 +225,7 @@ const reviewButton = async ({ body, context, ack }: ThumbsUp) => {
         callback_id: 'modal-callback-id2',
         title: {
           type: 'plain_text',
-          text: `「${restaurantName}」を評価`,
+          text: `${topic}`,
         },
         submit: {
           type: 'plain_text',
@@ -259,7 +241,7 @@ const reviewButton = async ({ body, context, ack }: ThumbsUp) => {
             block_id: 'rating',
             label: {
               type: 'plain_text',
-              text: '評価',
+              text: 'ServiceDesk',
             },
             element: {
               action_id: 'single_action',
@@ -310,7 +292,7 @@ const reviewButton = async ({ body, context, ack }: ThumbsUp) => {
               initial_date: '2019-09-26',
               placeholder: {
                 type: 'plain_text',
-                text: '行った日を選んでください',
+                text: 'When do you need it by',
                 emoji: true,
               },
             },
@@ -320,7 +302,7 @@ const reviewButton = async ({ body, context, ack }: ThumbsUp) => {
             block_id: 'comment',
             label: {
               type: 'plain_text',
-              text: 'コメント',
+              text: 'add a comment',
             },
             element: {
               type: 'plain_text_input',
@@ -411,7 +393,7 @@ function getRecommendationBlocks() {
       elements: [
         {
           type: 'button',
-          action_id: 'find-another', // このキー名で app.action と連動する
+          action_id: 'find-another', 
           text: {
             type: 'plain_text',
             text: 'food ',
@@ -421,13 +403,13 @@ function getRecommendationBlocks() {
         },
         {
           type: 'button',
-          action_id: 'add-review', // このキー名で app.action と連動する
+          action_id: 'add-review', 
           text: {
             type: 'plain_text',
             text: 'Add a review',
             emoji: true,
           },
-          value: JSON.stringify(restaurant), // このレストラン情報を次の処理へ引回す
+          value: JSON.stringify(restaurant),
         },
       ],
     },
@@ -436,10 +418,10 @@ function getRecommendationBlocks() {
 
 app.command('/lunch', async ({ ack, respond }) => {
   ack();
-  // response_url を使って応答する
+ 
   respond({
     text: 'yo',
-    response_type: 'ephemeral', // このコマンドを実行したユーザにだけ見えるメッセージ、say の場合はチャンネルに普通に post される
+    response_type: 'ephemeral', 
     blocks: getRecommendationBlocks(),
   });
 });
@@ -448,8 +430,8 @@ app.action('find-another', async ({ body, context, ack, respond }) => {
   ack();
   respond({
     text: 'yo',
-    response_type: 'ephemeral', // 再びこのユーザにだけ見えるメッセージ
-    replace_original: true, // もともとあったメッセージを置き換える
+    response_type: 'ephemeral', 
+    replace_original: true, 
     blocks: getRecommendationBlocks(),
   });
 });
